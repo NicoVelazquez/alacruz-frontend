@@ -1,0 +1,13 @@
+<div class="dashboard-container">
+
+  <app-sidenav class="desktop"></app-sidenav>
+
+  <div class="dashboard-body-container" [ngSwitch]="section">
+    <app-add-product *ngSwitchDefault></app-add-product>
+    <app-manage-products *ngSwitchCase="'manage-products'"></app-manage-products>
+    <app-add-banner *ngSwitchCase="'add-banner'"></app-add-banner>
+    <app-manage-banners *ngSwitchCase="'manage-banners'"></app-manage-banners>
+  </div>
+
+
+</div>

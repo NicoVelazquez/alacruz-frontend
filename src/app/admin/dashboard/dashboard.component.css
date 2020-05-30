@@ -1,0 +1,24 @@
+.dashboard-container {
+  display: flex;
+  justify-content: flex-start;
+  height: calc(100vh - 80px);
+}
+
+.dashboard-body-container {
+  flex-grow: 1;
+  padding: 40px;
+  max-height: calc(100vh - 80px);
+  overflow: auto;
+}
+
+.desktop {
+  display: block;
+}
+
+
+@media only screen and (max-width: 640px) {
+  .desktop {
+    display: none;
+  }
+
+}

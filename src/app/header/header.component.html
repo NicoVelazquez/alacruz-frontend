@@ -1,0 +1,55 @@
+<!------------DESKTOP------------>
+<nav class="uk-navbar-container desktop" uk-navbar>
+  <div class="uk-navbar-left">
+
+    <ul class="uk-navbar-nav">
+      <li class="uk-active">
+        <a routerLink="" class="logo" title="Lompaz">
+          <img src="./assets/images/alacruzs.png" style="height: 50px">
+        </a>
+      </li>
+      <li><a routerLink="">Home</a></li>
+      <li><a routerLink="/home/test">Contacto</a></li>
+    </ul>
+
+  </div>
+
+  <div class="uk-navbar-right" *ngIf="authService.isAuth()">
+
+    <ul class="uk-navbar-nav">
+      <li><a routerLink="dashboard">Dashboard</a></li>
+      <li><a (click)="signOut()" uk-icon="icon: sign-out; ratio: 1.3"></a></li>
+    </ul>
+
+  </div>
+</nav>
+
+
+<!------------MOBILE------------>
+<nav class="uk-navbar-container mobile" uk-navbar>
+  <div class="uk-navbar-left">
+    <ul class="uk-navbar-nav">
+      <li class="uk-active">
+        <a routerLink="" class="logo" title="Lompaz">
+          <img src="./assets/images/alacruzs.png" style="height: 50px">
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="uk-navbar-right">
+    <a class="uk-navbar-toggle" uk-toggle="target: #offcanvas-usage">
+      <span uk-navbar-toggle-icon></span>
+    </a>
+  </div>
+</nav>
+
+<div class="sidenav" id="offcanvas-usage" uk-offcanvas="flip: true">
+  <div class="uk-offcanvas-bar">
+
+    <button class="uk-offcanvas-close" type="button" uk-close></button>
+
+    <h3>Title</h3>
+
+  </div>
+</div>

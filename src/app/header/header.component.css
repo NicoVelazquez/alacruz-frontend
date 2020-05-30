@@ -1,0 +1,25 @@
+.uk-navbar-container {
+  background-color: #acacac;
+}
+
+a {
+  color: black !important;
+}
+
+.desktop {
+  display: flex;
+}
+
+.mobile {
+  display: none;
+}
+
+@media only screen and (max-width: 500px) {
+  .desktop {
+    display: none;
+  }
+
+  .mobile {
+    display: flex;
+  }
+}
