@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Banner} from '../../shared/models/banner';
 import {BannerService} from '../../shared/services/banner.service';
-import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-manage-banners',
@@ -16,9 +15,7 @@ export class ManageBannersComponent implements OnInit {
   banners = [];
   selectedBanner: Banner;
 
-  photoFile: File;
   photo: string | ArrayBuffer;
-  photoName = 'Select File';
 
   loading = false;
   editedBanner = false;
@@ -30,17 +27,15 @@ export class ManageBannersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.photo = './assets/images/noImageAvailable.png';
     this.bannerService.getAllBanners().then(banners => this.banners = banners);
-
     this.editBannerForm.disable();
   }
 
   selectBanner(banner: any) {
+    this.resetForm();
     this.selectedBanner = banner;
     this.editBannerForm.patchValue({name: banner.name});
-    this.photo = environment.apiUrl + banner.imageUrl;
-    this.photoName = banner.imageUrl.split('@')[1];
+    this.photo = banner.imageUrl;
     this.editBannerForm.enable();
   }
 
@@ -50,23 +45,20 @@ export class ManageBannersComponent implements OnInit {
       if (event.target.files && event.target.files[0]) {
         const reader = new FileReader();
         reader.onload = (event2: ProgressEvent) => {
-          this.photoFile = event.target.files[0];
           this.photo = (event2.target as FileReader).result;
         };
         reader.readAsDataURL(event.target.files[0]);
       }
       this.loading = false;
-    }, 1000);
+    }, 500);
   }
 
   editBanner() {
-    const formData = new FormData();
-    if (this.photoFile) {
-      formData.append('image', this.photoFile, this.photoFile.name);
+    this.selectedBanner.name = this.editBannerForm.value.name;
+    if (this.selectedBanner.imageUrl !== this.photo) {
+      this.selectedBanner.imageUrl = this.photo.toString();
     }
-    formData.append('id', this.selectedBanner._id);
-    formData.append('name', this.editBannerForm.value.name);
-    this.bannerService.editBanner(formData)
+    this.bannerService.editBanner(this.selectedBanner)
       .then(() => {
         this.editedBanner = true;
       });
@@ -81,11 +73,9 @@ export class ManageBannersComponent implements OnInit {
   }
 
   resetForm() {
+    (document.getElementById('form') as HTMLFormElement).reset();
     this.selectedBanner = undefined;
-    this.editBannerForm.reset();
-    this.photoFile = null;
-    this.photo = './assets/images/noImageAvailable.png';
-    this.photoName = 'Select File';
+    this.photo = null;
   }
 
 }

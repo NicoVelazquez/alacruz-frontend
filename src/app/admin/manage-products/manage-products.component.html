@@ -18,7 +18,7 @@
 
     <div class="edit-product-container uk-width-2-3@s">
       <h3>Edit</h3>
-      <form class="add-product-form" [formGroup]="editProductForm">
+      <form class="add-product-form" [formGroup]="editProductForm" id="form">
 
         <div class="uk-margin">
           <input class="uk-input uk-form-width-medium uk-form-large uk-width-1-1" type="text" id="email"
@@ -28,7 +28,7 @@
         <div class="uk-margin" uk-margin>
           <div class="uk-width-1-2" uk-form-custom="target: true">
             <input type="file" (change)="readUrl($event)">
-            <input class="uk-input" type="text" placeholder="{{photoName}}" disabled>
+            <input class="uk-input" type="text" placeholder="Edit image" disabled>
           </div>
         </div>
 
@@ -36,7 +36,8 @@
           <button class="uk-button uk-button-primary uk-width-1-2"
                   (click)="editProduct()"
                   [disabled]="editProductForm.invalid ||
-                  (editProductForm.value.name == selectedProduct?.name && photoFile == null)">
+                  (editProductForm.value.name == selectedProduct?.name &&
+                  photo == selectedProduct?.imageUrl)">
             Update
           </button>
           <button class="uk-button uk-button-danger uk-width-1-2"
@@ -53,7 +54,8 @@
   <div class="preview-product-container uk-width-2-5@m">
     <h3>Preview</h3>
     <div class="product uk-card uk-card-default uk-card-body">
-      <img src="{{this.photo}}" class="image">
+      <img src="{{this.photo}}" class="image" *ngIf="photo">
+      <img src="./assets/images/noImageAvailable.png" class="image" *ngIf="!photo">
 
       <img class="loading-image" src="./assets/images/loading.svg" *ngIf="loading">
 

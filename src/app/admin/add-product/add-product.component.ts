@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ProductService} from '../../shared/services/product.service';
+import {Product} from '../../shared/models/product';
 
 @Component({
   selector: 'app-add-product',
@@ -11,7 +12,6 @@ export class AddProductComponent implements OnInit {
 
   public addProductForm: FormGroup;
 
-  photoFile: File;
   photo: string | ArrayBuffer;
 
   loading = false;
@@ -24,7 +24,6 @@ export class AddProductComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.photo = './assets/images/noImageAvailable.png';
   }
 
   readUrl(event: any) {
@@ -33,29 +32,27 @@ export class AddProductComponent implements OnInit {
       if (event.target.files && event.target.files[0]) {
         const reader = new FileReader();
         reader.onload = (event2: ProgressEvent) => {
-          this.photoFile = event.target.files[0];
           this.photo = (event2.target as FileReader).result;
         };
         reader.readAsDataURL(event.target.files[0]);
       }
       this.loading = false;
-    }, 1000);
+    }, 500);
   }
 
   createProduct() {
-    const formData = new FormData();
-    formData.append('image', this.photoFile, this.photoFile.name);
-    formData.append('name', this.addProductForm.value.name);
-    this.productService.createProduct(formData)
-      .then(product => {
+    const name = this.addProductForm.value.name;
+    const imageUrl = this.photo.toString();
+    const newProduct = new Product(name, imageUrl);
+    this.productService.createProduct(newProduct)
+      .then(() => {
         this.newProduct = true;
         this.resetForm();
       });
   }
 
   resetForm() {
-    this.addProductForm.reset();
-    this.photoFile = null;
-    this.photo = './assets/images/noImageAvailable.png';
+    (document.getElementById('form') as HTMLFormElement).reset();
+    this.photo = null;
   }
 }

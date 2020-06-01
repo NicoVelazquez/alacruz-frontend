@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ProductService} from '../shared/services/product.service';
 import {BannerService} from '../shared/services/banner.service';
-import {environment} from '../../environments/environment';
+import {Product} from '../shared/models/product';
+import {Banner} from '../shared/models/banner';
 
 
 @Component({
@@ -11,22 +12,16 @@ import {environment} from '../../environments/environment';
 })
 export class HomeComponent implements OnInit {
 
-  products = [];
-  banners = [];
+  products: Product[];
+  banners: Banner[];
 
   constructor(private productService: ProductService, private bannerService: BannerService) {
   }
 
   ngOnInit(): void {
-    this.productService.getAllProducts().then(products => {
-      this.products = products;
-      this.products.map(e => e.imageUrl = environment.apiUrl + e.imageUrl);
-    });
+    this.productService.getAllProducts().then(products => this.products = products);
 
-    this.bannerService.getAllBanners().then(banners => {
-      this.banners = banners;
-      this.banners.map(e => e.imageUrl = environment.apiUrl + e.imageUrl);
-    });
+    this.bannerService.getAllBanners().then(banners => this.banners = banners);
   }
 
 }

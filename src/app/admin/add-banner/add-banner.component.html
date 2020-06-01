@@ -8,22 +8,22 @@
 
     <div class="new-banner-container uk-width-1-2@s">
       <h3>Add new banner</h3>
-      <form class="add-banner-form" [formGroup]="addBannerForm">
+      <form class="add-banner-form" [formGroup]="addBannerForm" id="form">
 
         <div class="uk-margin">
           <input class="uk-input uk-form-width-medium uk-form-large uk-width-1-1" type="text" id="email"
-                 formControlName="name" placeholder="Name">
+                 formControlName="name" placeholder="Name" autocomplete="off">
         </div>
 
         <div class="uk-margin" uk-margin>
           <div class="uk-width-1-2" uk-form-custom="target: true">
             <input type="file" (change)="readUrl($event)">
-            <input class="uk-input" type="text" placeholder="Select file" disabled>
+            <input class="uk-input" type="text" placeholder="Select image" disabled>
           </div>
         </div>
 
         <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small"
-                (click)="createBanner()" [disabled]="addBannerForm.invalid || this.photoFile == null">
+                (click)="createBanner()" [disabled]="addBannerForm.invalid || !this.photo">
           Create
         </button>
 
@@ -34,7 +34,8 @@
       <h3>Preview</h3>
 
       <div class="banner uk-card uk-card-default uk-card-body">
-        <img src="{{this.photo}}" class="image">
+        <img src="{{this.photo}}" class="image" alt="" *ngIf="this.photo">
+        <img src="./assets/images/noImageAvailable.png" class="image" alt="" *ngIf="!this.photo">
 
         <img class="loading-image" src="./assets/images/loading.svg" *ngIf="loading">
       </div>

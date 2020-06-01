@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ProductService} from '../../shared/services/product.service';
-import {environment} from '../../../environments/environment';
 import {Product} from '../../shared/models/product';
 
 @Component({
@@ -16,9 +15,7 @@ export class ManageProductsComponent implements OnInit {
   products = [];
   selectedProduct: Product;
 
-  photoFile: File;
   photo: string | ArrayBuffer;
-  photoName = 'Select File';
 
   loading = false;
   editedProduct = false;
@@ -30,19 +27,15 @@ export class ManageProductsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.photo = './assets/images/noImageAvailable.png';
     this.productService.getAllProducts().then(products => this.products = products);
-
     this.editProductForm.disable();
   }
 
   selectProduct(product: any) {
-    console.log(product);
+    this.resetForm();
     this.selectedProduct = product;
     this.editProductForm.patchValue({name: product.name});
-    this.photo = environment.apiUrl + product.imageUrl;
-    console.log(this.photo);
-    this.photoName = product.imageUrl.split('@')[1];
+    this.photo = product.imageUrl;
     this.editProductForm.enable();
   }
 
@@ -52,23 +45,20 @@ export class ManageProductsComponent implements OnInit {
       if (event.target.files && event.target.files[0]) {
         const reader = new FileReader();
         reader.onload = (event2: ProgressEvent) => {
-          this.photoFile = event.target.files[0];
           this.photo = (event2.target as FileReader).result;
         };
         reader.readAsDataURL(event.target.files[0]);
       }
       this.loading = false;
-    }, 1000);
+    }, 500);
   }
 
   editProduct() {
-    const formData = new FormData();
-    if (this.photoFile) {
-      formData.append('image', this.photoFile, this.photoFile.name);
+    this.selectedProduct.name = this.editProductForm.value.name;
+    if (this.selectedProduct.imageUrl !== this.photo) {
+      this.selectedProduct.imageUrl = this.photo.toString();
     }
-    formData.append('id', this.selectedProduct._id);
-    formData.append('name', this.editProductForm.value.name);
-    this.productService.editProduct(formData)
+    this.productService.editProduct(this.selectedProduct)
       .then(() => {
         this.editedProduct = true;
       });
@@ -83,11 +73,9 @@ export class ManageProductsComponent implements OnInit {
   }
 
   resetForm() {
+    (document.getElementById('form') as HTMLFormElement).reset();
     this.selectedProduct = undefined;
-    this.editProductForm.reset();
-    this.photoFile = null;
-    this.photo = './assets/images/noImageAvailable.png';
-    this.photoName = 'Select File';
+    this.photo = null;
   }
 
 }

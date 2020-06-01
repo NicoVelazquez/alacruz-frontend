@@ -8,22 +8,22 @@
 
     <div class="new-product-container uk-width-1-2@s">
       <h3>Add new product</h3>
-      <form class="add-product-form" [formGroup]="addProductForm">
+      <form class="add-product-form" [formGroup]="addProductForm" id="form">
 
         <div class="uk-margin">
           <input class="uk-input uk-form-width-medium uk-form-large uk-width-1-1" type="text" id="email"
-                 formControlName="name" placeholder="Name">
+                 formControlName="name" placeholder="Name" autocomplete="off">
         </div>
 
         <div class="uk-margin" uk-margin>
           <div class="uk-width-1-2" uk-form-custom="target: true">
-            <input type="file" (change)="readUrl($event)">
-            <input class="uk-input" type="text" placeholder="Select file" disabled>
+            <input type="file" (change)="readUrl($event)" id="fileInput">
+            <input class="uk-input" type="text" placeholder="Select image" disabled>
           </div>
         </div>
 
         <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small"
-                (click)="createProduct()" [disabled]="addProductForm.invalid || this.photoFile == null">
+                (click)="createProduct()" [disabled]="addProductForm.invalid || !this.photo">
           Create
         </button>
 
@@ -34,9 +34,10 @@
       <h3>Preview</h3>
 
       <div class="product uk-card uk-card-default uk-card-body">
-        <img src="{{this.photo}}" class="image">
+        <img src="{{this.photo}}" class="image" alt="" *ngIf="this.photo">
+        <img src="./assets/images/noImageAvailable.png" class="image" alt="" *ngIf="!this.photo">
 
-        <img class="loading-image" src="./assets/images/loading.svg" *ngIf="loading">
+        <img class="loading-image" src="./assets/images/loading.svg" alt="" *ngIf="loading">
 
         <div class="information" *ngIf="addProductForm.value.name">
           <div class="name"><h3>{{addProductForm.value.name}}</h3></div>
