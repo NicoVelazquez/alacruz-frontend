@@ -1,13 +1,15 @@
 .uk-navbar-container {
-  background-color: #acacac;
+  background-color: white;
 }
 
 a {
+  font-family: chunkfive, serif !important;
   color: black !important;
 }
 
 .desktop {
   display: flex;
+  padding: 0 20px;
 }
 
 .mobile {

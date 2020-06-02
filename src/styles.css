@@ -1,4 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: 'chunkfive';
+  src: url(assets/fonts/chunkfive.otf);
+}
+
+@font-face {
+  font-family: 'lobster';
+  src: url(assets/fonts/lobster.otf);
+}
+
 body {
   margin: 0;
 }
@@ -6,4 +16,27 @@ body {
 input.ng-invalid.ng-touched,
 textarea.ng-invalid.ng-touched {
   border: 1px solid red;
+}
+
+.uk-notification-message-success {
+  background-color: white !important;
+  border-left: 5px solid #1E87F0 !important;
+  border-radius: 5px !important;
+  color: #1E87F0 !important;
+}
+
+.uk-notification-message-danger {
+  background-color: white !important;
+  border-left: 5px solid #F0506E !important;
+  border-radius: 5px !important;
+  color: #F0506E !important;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+.uk-button-secondary:disabled {
+  background-color: #959595 !important;
+  color: white !important;
 }

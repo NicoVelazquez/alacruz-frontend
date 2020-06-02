@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {BannerService} from '../../shared/services/banner.service';
 import {Banner} from '../../shared/models/banner';
+import {Notification} from '../../shared/notification';
 
 @Component({
   selector: 'app-add-banner',
@@ -11,11 +12,8 @@ import {Banner} from '../../shared/models/banner';
 export class AddBannerComponent implements OnInit {
 
   public addBannerForm: FormGroup;
-
   photo: string | ArrayBuffer;
-
   loading = false;
-  newBanner = false;
 
   constructor(private fb: FormBuilder, private bannerService: BannerService) {
     this.addBannerForm = fb.group({
@@ -46,8 +44,12 @@ export class AddBannerComponent implements OnInit {
     const newBanner = new Banner(name, imageUrl);
     this.bannerService.createBanner(newBanner)
       .then(() => {
-        this.newBanner = true;
+        Notification.notify('<span uk-icon="icon: check"></span> Banner created successfully', 'success');
         this.resetForm();
+      })
+      .catch(err => {
+        console.log(err);
+        Notification.notify('<span uk-icon="icon: check"></span> Banner could not be created', 'danger');
       });
   }
 

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ProductService} from '../../shared/services/product.service';
 import {Product} from '../../shared/models/product';
+import {Notification} from '../../shared/notification';
 
 @Component({
   selector: 'app-add-product',
@@ -11,11 +12,8 @@ import {Product} from '../../shared/models/product';
 export class AddProductComponent implements OnInit {
 
   public addProductForm: FormGroup;
-
   photo: string | ArrayBuffer;
-
   loading = false;
-  newProduct = false;
 
   constructor(private fb: FormBuilder, private productService: ProductService) {
     this.addProductForm = fb.group({
@@ -46,8 +44,12 @@ export class AddProductComponent implements OnInit {
     const newProduct = new Product(name, imageUrl);
     this.productService.createProduct(newProduct)
       .then(() => {
-        this.newProduct = true;
+        Notification.notify('<span uk-icon="icon: check"></span> Product created successfully', 'success');
         this.resetForm();
+      })
+      .catch(err => {
+        console.log(err);
+        Notification.notify('<span uk-icon="icon: check"></span> Product could not be created', 'danger');
       });
   }
 

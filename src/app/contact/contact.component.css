@@ -1,0 +1,23 @@
+p {
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+.message-input {
+  resize: vertical;
+}
+
+.contact-title {
+  font-family: chunkfive, serif;
+  padding: 50px;
+}
+
+.section-title {
+  font-family: chunkfive, serif !important;
+}
+
+
+.contact-section {
+  padding-top: 50px;
+  padding-bottom: 20px;
+}

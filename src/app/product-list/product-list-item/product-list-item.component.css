@@ -22,7 +22,16 @@
 }
 
 .name h3 {
+  font-family: chunkfive, serif;
   font-size: 1.4rem;
   font-weight: 600;
   margin: 0 0 4px;
+}
+
+.loading-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px;
 }

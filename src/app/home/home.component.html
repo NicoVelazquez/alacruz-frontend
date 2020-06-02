@@ -1,10 +1,11 @@
 <div class="home-container">
 
   <div class="slideshow-container">
-    <div class="slideshow uk-position-relative uk-visible-toggle uk-light" tabindex="-1"
-         uk-slideshow="autoplay: true; ratio: 5:2">
 
-      <ul class="uk-slideshow-items">
+    <div class="slideshow uk-position-relative uk-visible-toggle uk-light" tabindex="-1"
+         uk-slideshow="autoplay: true; ratio: false">
+
+      <ul class="uk-slideshow-items" uk-height-viewport="offset-top: true; offset-bottom: 30">
         <li *ngFor="let banner of banners">
           <img src="{{banner.imageUrl}}" alt="" uk-cover>
         </li>
@@ -16,15 +17,24 @@
          uk-slideshow-item="next"></a>
 
     </div>
+
+    <ul class="uk-slideshow-nav uk-dotnav uk-flex-center uk-margin"></ul>
+
   </div>
 
-  <div class="products-container">
-    <div class="products">
 
-      <h3 class="section-title">Nuestros Productos</h3>
+  <div class="home-body-container uk-flex uk-flex-center">
 
-      <app-product-list [products]="products"></app-product-list>
+    <div class="products-section uk-width-4-5">
+
+      <div class="popular-title">
+        <h2 class="section-title uk-text-center">Productos Populares</h2>
+        <h3 class="section-subtitle uk-text-center">No los conoces?</h3>
+      </div>
+
+      <app-product-list [products]="products" [productsPerRow]="3"></app-product-list>
     </div>
+
   </div>
 
 </div>

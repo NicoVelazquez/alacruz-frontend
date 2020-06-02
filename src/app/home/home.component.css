@@ -1,22 +1,19 @@
-.slideshow-container,
-.products-container{
-  display: flex;
-  justify-content: center;
-  margin-top: 2%;
-  margin-bottom: 2%;
+.slideshow {
+  width: 100%;
 }
 
-.slideshow,
-.products{
-  width: 80%;
+.products-section {
+  padding-bottom: 40px;
 }
-
 
 .section-title {
-  text-align: center;
-  padding: 10px;
-  border-radius: 5px;
-  background-color: #acacac;
+  font-family: chunkfive, serif;
   color: black;
-  opacity: 0.8;
+  margin-bottom: 0;
+}
+
+.section-subtitle {
+  font-family: lobster, serif;
+  margin-top: 0;
+  color: #959595;
 }

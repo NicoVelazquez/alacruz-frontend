@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ProductService} from '../../shared/services/product.service';
 import {Product} from '../../shared/models/product';
+import {Notification} from '../../shared/notification';
 
 @Component({
   selector: 'app-manage-products',
@@ -11,14 +12,10 @@ import {Product} from '../../shared/models/product';
 export class ManageProductsComponent implements OnInit {
 
   public editProductForm: FormGroup;
-
   products = [];
   selectedProduct: Product;
-
   photo: string | ArrayBuffer;
-
   loading = false;
-  editedProduct = false;
 
   constructor(private fb: FormBuilder, private productService: ProductService) {
     this.editProductForm = fb.group({
@@ -60,15 +57,24 @@ export class ManageProductsComponent implements OnInit {
     }
     this.productService.editProduct(this.selectedProduct)
       .then(() => {
-        this.editedProduct = true;
+        Notification.notify('<span uk-icon="icon: check"></span> Product edited successfully', 'success');
+      })
+      .catch(err => {
+        console.log(err);
+        Notification.notify('<span uk-icon="icon: warning"></span> Product could not be edited', 'danger');
       });
   }
 
   deleteProduct() {
     this.productService.deleteProduct(this.selectedProduct._id)
       .then(removedProductId => {
+        Notification.notify('<span uk-icon="icon: check"></span> Product deleted successfully', 'success');
         this.products = this.products.filter(e => e._id !== removedProductId);
         this.resetForm();
+      })
+      .catch(err => {
+        console.log(err);
+        Notification.notify('<span uk-icon="icon: warning"></span> Product could not be deleted', 'danger');
       });
   }
 

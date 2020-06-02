@@ -1,17 +1,12 @@
 <div class="manage-banner-container uk-grid uk-grid-medium" uk-grid>
 
-  <div class="uk-width-1-1 uk-text-center" *ngIf="editedBanner">
-    <p>Banner edited successfully. Click <a routerLink="">here</a> to see it.</p>
-  </div>
-
-
   <div class="uk-width-3-5@m uk-grid uk-grid-medium" uk-grid>
     <div class="list-banner-container uk-width-1-3@s">
       <h3>Banners</h3>
       <ul class="uk-list uk-list-striped">
-        <li *ngFor="let banner of banners" (click)="selectBanner(banner)">
+        <li class="banner-item" *ngFor="let banner of banners" (click)="selectBanner(banner)">
           {{banner.name}}
-          <span class="uk-align-right" uk-icon="icon: pencil"></span>
+          <span class="uk-align-right edit-banner" uk-icon="icon: pencil"></span>
         </li>
       </ul>
     </div>
@@ -21,7 +16,7 @@
       <form class="add-banner-form" [formGroup]="editBannerForm" id="form">
 
         <div class="uk-margin">
-          <input class="uk-input uk-form-width-medium uk-form-large uk-width-1-1" type="text" id="email"
+          <input class="uk-input uk-form-width-medium uk-form-large uk-width-1-1" type="text"
                  formControlName="name" placeholder="Name" autocomplete="off">
         </div>
 
@@ -53,12 +48,10 @@
 
   <div class="preview-banner-container uk-width-2-5@m">
     <h3>Preview</h3>
-    <div class="banner uk-card uk-card-default uk-card-body">
-      <img src="{{this.photo}}" class="image" *ngIf="photo">
-      <img src="./assets/images/noImageAvailable.png" class="image" *ngIf="!photo">
-
-      <img class="loading-image" src="./assets/images/loading.svg" *ngIf="loading">
-    </div>
+    <app-product-list-item
+      [product]="{name: '', imageUrl: photo}"
+      [loading]="loading">
+    </app-product-list-item>
   </div>
 
 

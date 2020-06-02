@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Banner} from '../../shared/models/banner';
 import {BannerService} from '../../shared/services/banner.service';
+import {Notification} from '../../shared/notification';
 
 @Component({
   selector: 'app-manage-banners',
@@ -11,14 +12,10 @@ import {BannerService} from '../../shared/services/banner.service';
 export class ManageBannersComponent implements OnInit {
 
   public editBannerForm: FormGroup;
-
   banners = [];
   selectedBanner: Banner;
-
   photo: string | ArrayBuffer;
-
   loading = false;
-  editedBanner = false;
 
   constructor(private fb: FormBuilder, private bannerService: BannerService) {
     this.editBannerForm = fb.group({
@@ -60,15 +57,24 @@ export class ManageBannersComponent implements OnInit {
     }
     this.bannerService.editBanner(this.selectedBanner)
       .then(() => {
-        this.editedBanner = true;
+        Notification.notify('<span uk-icon="icon: check"></span> Banner edited successfully', 'success');
+      })
+      .catch(err => {
+        console.log(err);
+        Notification.notify('<span uk-icon="icon: warning"></span> Banner could not be edited', 'danger');
       });
   }
 
   deleteBanner() {
     this.bannerService.deleteBanner(this.selectedBanner._id)
       .then(removedBannerId => {
+        Notification.notify('<span uk-icon="icon: check"></span> Banner deleted successfully', 'success');
         this.banners = this.banners.filter(e => e._id !== removedBannerId);
         this.resetForm();
+      })
+      .catch(err => {
+        console.log(err);
+        Notification.notify('<span uk-icon="icon: warning"></span> Banner could not be deleted', 'danger');
       });
   }
 

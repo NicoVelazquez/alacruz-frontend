@@ -1,1 +1,62 @@
-<p>contact works!</p>
+<div class="contact-container">
+
+  <h1 class="contact-title uk-text-center">Contacto</h1>
+
+  <div class="uk-flex uk-flex-center">
+
+    <div class="sections uk-grid uk-grid-medium uk-width-2-3@s" uk-grid>
+
+      <div class="information-section-title uk-width-1-3@s">
+        <h4 class="section-title">Información</h4>
+      </div>
+
+      <div class="info-section-body uk-width-2-3@s">
+        <p>Gracias por elegir ALACRUZ®. Con la marca viene gran calidad en todos los productos.
+          Escribo un poco mas para que quede mas lindo, se podria poner una descripcion de la marca, etc.</p>
+        <ul class="uk-list uk-list-bullet">
+          <li>Dirección: GBA, Buenos Aires, Argentina</li>
+          <li>Telefono: +54 911 1234 5678</li>
+          <li>Mail: info@alacruz.com.ar</li>
+          <li>Lunes - Viernes: 8am - 6pm</li>
+          <li>Sabados - Domingos: 9am - 3pm</li>
+        </ul>
+      </div>
+
+      <div class="contact-section-title contact-section uk-width-1-3@s">
+        <h4 class="section-title">Contactanos</h4>
+      </div>
+
+      <div class="contact-section-body contact-section uk-width-2-3@s">
+        <form class="add-banner-form" [formGroup]="contactForm">
+
+          <div class="uk-margin">
+            <input class="uk-input uk-form-width-medium uk-form-large uk-width-1-1" type="text"
+                   formControlName="name" placeholder="Nombre *" autocomplete="off">
+          </div>
+
+          <div class="uk-margin">
+            <input class="uk-input uk-form-width-medium uk-form-large uk-width-1-1" type="email"
+                   formControlName="email" placeholder="Mail *" autocomplete="off"
+                   pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+          </div>
+
+          <div class="uk-margin">
+            <textarea class="uk-textarea uk-form-width-medium uk-form-large uk-width-1-1 message-input"
+                      type="text" rows="4"
+                      formControlName="message" placeholder="Mensaje *" autocomplete="off"></textarea>
+          </div>
+
+          <button class="uk-button uk-button-secondary uk-width-1-1 uk-margin-small"
+                  (click)="sendMail()" [disabled]="contactForm.invalid">
+            Enviar
+          </button>
+
+        </form>
+      </div>
+
+
+    </div>
+
+  </div>
+
+</div>

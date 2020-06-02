@@ -1,9 +1,5 @@
 <div class="add-banner-container">
 
-  <div class="uk-width-1-1 uk-text-center" *ngIf="newBanner">
-    <p>Banner added successfully. Click <a routerLink="">here</a> to see it.</p>
-  </div>
-
   <div class="uk-grid uk-grid-large" uk-grid>
 
     <div class="new-banner-container uk-width-1-2@s">
@@ -11,7 +7,7 @@
       <form class="add-banner-form" [formGroup]="addBannerForm" id="form">
 
         <div class="uk-margin">
-          <input class="uk-input uk-form-width-medium uk-form-large uk-width-1-1" type="text" id="email"
+          <input class="uk-input uk-form-width-medium uk-form-large uk-width-1-1" type="text"
                  formControlName="name" placeholder="Name" autocomplete="off">
         </div>
 
@@ -33,12 +29,10 @@
     <div class="preview-banner-container uk-width-1-2@s">
       <h3>Preview</h3>
 
-      <div class="banner uk-card uk-card-default uk-card-body">
-        <img src="{{this.photo}}" class="image" alt="" *ngIf="this.photo">
-        <img src="./assets/images/noImageAvailable.png" class="image" alt="" *ngIf="!this.photo">
-
-        <img class="loading-image" src="./assets/images/loading.svg" *ngIf="loading">
-      </div>
+      <app-product-list-item
+        [product]="{name: '', imageUrl: photo}"
+        [loading]="loading">
+      </app-product-list-item>
 
     </div>
 

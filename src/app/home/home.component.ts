@@ -12,8 +12,9 @@ import {Banner} from '../shared/models/banner';
 })
 export class HomeComponent implements OnInit {
 
-  products: Product[];
-  banners: Banner[];
+  products: Product[] = [new Product('', './assets/images/product-loader.svg'),
+    new Product('', './assets/images/product-loader.svg')];
+  banners: Banner[] = [new Banner('', './assets/images/banner-loader.svg')];
 
   constructor(private productService: ProductService, private bannerService: BannerService) {
   }

@@ -9,6 +9,7 @@ import {Component, Input, OnInit} from '@angular/core';
 export class ProductListItemComponent implements OnInit {
 
   @Input() product;
+  @Input() loading: boolean;
 
   constructor() {
   }

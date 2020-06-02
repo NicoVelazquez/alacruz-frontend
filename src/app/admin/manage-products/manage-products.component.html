@@ -1,17 +1,12 @@
 <div class="manage-product-container uk-grid uk-grid-medium" uk-grid>
 
-  <div class="uk-width-1-1 uk-text-center" *ngIf="editedProduct">
-    <p>Product edited successfully. Click <a routerLink="">here</a> to see it.</p>
-  </div>
-
-
   <div class="uk-width-3-5@m uk-grid uk-grid-medium" uk-grid>
     <div class="list-product-container uk-width-1-3@s">
       <h3>Products</h3>
       <ul class="uk-list uk-list-striped">
-        <li *ngFor="let product of products" (click)="selectProduct(product)">
+        <li class="product-item" *ngFor="let product of products" (click)="selectProduct(product)">
           {{product.name}}
-          <span class="uk-align-right" uk-icon="icon: pencil"></span>
+          <span class="uk-align-right edit-product" uk-icon="icon: pencil"></span>
         </li>
       </ul>
     </div>
@@ -21,7 +16,7 @@
       <form class="add-product-form" [formGroup]="editProductForm" id="form">
 
         <div class="uk-margin">
-          <input class="uk-input uk-form-width-medium uk-form-large uk-width-1-1" type="text" id="email"
+          <input class="uk-input uk-form-width-medium uk-form-large uk-width-1-1" type="text"
                  formControlName="name" placeholder="Name" autocomplete="off">
         </div>
 
@@ -53,16 +48,10 @@
 
   <div class="preview-product-container uk-width-2-5@m">
     <h3>Preview</h3>
-    <div class="product uk-card uk-card-default uk-card-body">
-      <img src="{{this.photo}}" class="image" *ngIf="photo">
-      <img src="./assets/images/noImageAvailable.png" class="image" *ngIf="!photo">
-
-      <img class="loading-image" src="./assets/images/loading.svg" *ngIf="loading">
-
-      <div class="information" *ngIf="editProductForm.value.name">
-        <div class="name"><h3>{{editProductForm.value.name}}</h3></div>
-      </div>
-    </div>
+    <app-product-list-item
+      [product]="{name: editProductForm.value.name, imageUrl: photo}"
+      [loading]="loading">
+    </app-product-list-item>
   </div>
 
 

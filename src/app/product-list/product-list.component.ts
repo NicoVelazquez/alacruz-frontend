@@ -9,7 +9,7 @@ export class ProductListComponent implements OnInit {
 
   @Input() products;
 
-  productsPerRow = 2;
+  @Input() productsPerRow = 2;
 
 
   constructor() {
