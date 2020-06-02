@@ -29,7 +29,6 @@ export class ManageProductsComponent implements OnInit {
   }
 
   selectProduct(product: any) {
-    this.resetForm();
     this.selectedProduct = product;
     this.editProductForm.patchValue({name: product.name});
     this.photo = product.imageUrl;
@@ -57,6 +56,7 @@ export class ManageProductsComponent implements OnInit {
     }
     this.productService.editProduct(this.selectedProduct)
       .then(() => {
+        this.resetForm();
         Notification.notify('<span uk-icon="icon: check"></span> Product edited successfully', 'success');
       })
       .catch(err => {
@@ -84,5 +84,9 @@ export class ManageProductsComponent implements OnInit {
     this.photo = null;
   }
 
+  checkboxChanged() {
+    console.log('entro');
+    this.selectedProduct.featured = !this.selectedProduct.featured;
+  }
 }
 

@@ -7,6 +7,19 @@ a {
   color: black !important;
 }
 
+.sidenav-container {
+  padding-top: 50px;
+}
+
+.sidenav-container a{
+  color: white !important;
+}
+
+.bottom-nav {
+  position: absolute;
+  bottom: 20px;
+}
+
 .desktop {
   display: flex;
   padding: 0 20px;
@@ -16,7 +29,7 @@ a {
   display: none;
 }
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 640px) {
   .desktop {
     display: none;
   }

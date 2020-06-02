@@ -14,6 +14,7 @@ export class AddProductComponent implements OnInit {
   public addProductForm: FormGroup;
   photo: string | ArrayBuffer;
   loading = false;
+  isFeatured = false;
 
   constructor(private fb: FormBuilder, private productService: ProductService) {
     this.addProductForm = fb.group({
@@ -22,6 +23,10 @@ export class AddProductComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  checkboxChanged() {
+    this.isFeatured = !this.isFeatured;
   }
 
   readUrl(event: any) {
@@ -41,7 +46,8 @@ export class AddProductComponent implements OnInit {
   createProduct() {
     const name = this.addProductForm.value.name;
     const imageUrl = this.photo.toString();
-    const newProduct = new Product(name, imageUrl);
+    const featured = this.isFeatured;
+    const newProduct = new Product(name, imageUrl, featured);
     this.productService.createProduct(newProduct)
       .then(() => {
         Notification.notify('<span uk-icon="icon: check"></span> Product created successfully', 'success');
@@ -56,5 +62,6 @@ export class AddProductComponent implements OnInit {
   resetForm() {
     (document.getElementById('form') as HTMLFormElement).reset();
     this.photo = null;
+    this.isFeatured = false;
   }
 }

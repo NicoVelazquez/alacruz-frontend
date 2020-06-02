@@ -11,10 +11,17 @@
                  formControlName="name" placeholder="Name" autocomplete="off">
         </div>
 
-        <div class="uk-margin" uk-margin>
+        <div class="uk-margin uk-flex uk-flex-between" uk-margin>
           <div class="uk-width-1-2" uk-form-custom="target: true">
             <input type="file" (change)="readUrl($event)" id="fileInput">
             <input class="uk-input" type="text" placeholder="Select image" disabled>
+          </div>
+          <div>
+            <label>
+              Featured
+              <input class="uk-checkbox featured-checkbox" type="checkbox" [checked]="isFeatured"
+                     (change)="checkboxChanged()">
+            </label>
           </div>
         </div>
 

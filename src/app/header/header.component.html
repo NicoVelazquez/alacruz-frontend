@@ -31,7 +31,7 @@
 </nav>
 
 
-<!------------MOBILE------------>
+<!------------MOBILE HEADER------------>
 <nav class="uk-navbar-container mobile" uk-navbar>
   <div class="uk-navbar-left">
     <ul class="uk-navbar-nav">
@@ -50,12 +50,37 @@
   </div>
 </nav>
 
+<!------------MOBILE SIDENAV------------>
 <div class="sidenav" id="offcanvas-usage" uk-offcanvas="flip: true">
   <div class="uk-offcanvas-bar">
 
     <button class="uk-offcanvas-close" type="button" uk-close></button>
 
-    <h3>Title</h3>
+    <div class="uk-flex uk-flex-center">
+      <img src="./assets/images/alacruz2s.png" style="height: 50px">
+    </div>
+
+    <div class="sidenav-container">
+      <ul class="top-nav uk-nav-default uk-nav-parent-icon" uk-nav>
+        <li><a routerLink="">Home</a></li>
+        <li><a routerLink="/contact">Contacto</a></li>
+      </ul>
+
+      <ul class="top-nav uk-nav-default uk-nav-parent-icon" uk-nav *ngIf="authService.isAuth()">
+        <li class="uk-nav-divider" style="margin: 20px 0"></li>
+        <li class="uk-nav-divider" style="margin: 20px 0"></li>
+        <li><a routerLink="/dashboard/add-product">Add Product</a></li>
+        <li><a routerLink="/dashboard/manage-products">Manage Products</a></li>
+        <li class="uk-nav-divider" style="margin: 20px 0"></li>
+        <li><a routerLink="/dashboard/add-banner">Add Banner</a></li>
+        <li><a routerLink="/dashboard/manage-banners">Manage Banners</a></li>
+      </ul>
+
+      <ul class="bottom-nav uk-nav-default uk-nav-parent-icon" uk-nav *ngIf="authService.isAuth()">
+        <li><a (click)="signOut()">Sign Out</a></li>
+      </ul>
+    </div>
+
 
   </div>
 </div>

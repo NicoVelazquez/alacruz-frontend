@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.productService.getAllProducts().then(products => this.products = products);
+    this.productService.getFeaturedProducts().then(products => this.products = products);
 
     this.bannerService.getAllBanners().then(banners => this.banners = banners);
   }
