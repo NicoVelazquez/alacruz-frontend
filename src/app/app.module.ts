@@ -21,8 +21,8 @@ import {ManageBannersComponent} from './admin/manage-banners/manage-banners.comp
 import { ContactComponent } from './contact/contact.component';
 import {CachingInterceptor} from './shared/helpers/caching.interceptor';
 import {RequestCache} from './shared/helpers/request-cache';
-import { WidgetsComponent } from './widgets/widgets.component';
-import { ButtonComponent } from './button/button.component';
+import { WidgetsComponent } from './shared/components/widgets/widgets.component';
+import { ButtonComponent } from './shared/components/button/button.component';
 
 @NgModule({
   declarations: [

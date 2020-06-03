@@ -11,8 +11,13 @@ export class CachingInterceptor implements HttpInterceptor {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
-    const cachedResponse = this.cache.get(req);
-    return cachedResponse ? of(cachedResponse) : this.sendRequest(req, next, this.cache);
+    if (req.method !== 'GET') {
+      console.log('NO ES UN GET');
+      return next.handle(req);
+    } else {
+      const cachedResponse = this.cache.get(req);
+      return cachedResponse ? of(cachedResponse) : this.sendRequest(req, next, this.cache);
+    }
   }
 
   sendRequest(req: HttpRequest<any>, next: HttpHandler, cache: RequestCache): Observable<HttpEvent<any>> {

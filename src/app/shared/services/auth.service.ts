@@ -31,4 +31,8 @@ export class AuthService {
     localStorage.removeItem('currentUser');
     this.router.navigate(['']);
   }
+
+  public sendMail(mail: any) {
+    return this.http.post<any>(`${environment.apiUrl}auth/send-mail`, mail).toPromise();
+  }
 }
