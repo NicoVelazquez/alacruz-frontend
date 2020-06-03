@@ -4,6 +4,8 @@
   display: flex;
   justify-content: center;
   overflow: hidden;
+  /*Fixes image stretching in safari when image in flexbox*/
+  align-items: flex-start;
 }
 
 .product:hover {

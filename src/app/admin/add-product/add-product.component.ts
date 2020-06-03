@@ -14,6 +14,7 @@ export class AddProductComponent implements OnInit {
   public addProductForm: FormGroup;
   photo: string | ArrayBuffer;
   loading = false;
+  creating = false;
   isFeatured = false;
 
   constructor(private fb: FormBuilder, private productService: ProductService) {
@@ -43,20 +44,23 @@ export class AddProductComponent implements OnInit {
     }, 500);
   }
 
-  createProduct() {
+  async createProduct() {
+    this.creating = true;
     const name = this.addProductForm.value.name;
     const imageUrl = this.photo.toString();
     const featured = this.isFeatured;
     const newProduct = new Product(name, imageUrl, featured);
-    this.productService.createProduct(newProduct)
+    await this.productService.createProduct(newProduct)
       .then(() => {
         Notification.notify('<span uk-icon="icon: check"></span> Product created successfully', 'success');
         this.resetForm();
+
       })
       .catch(err => {
         console.log(err);
-        Notification.notify('<span uk-icon="icon: check"></span> Product could not be created', 'danger');
+        Notification.notify('<span uk-icon="icon: warning"></span> Product could not be created', 'danger');
       });
+    this.creating = false;
   }
 
   resetForm() {

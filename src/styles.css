@@ -9,6 +9,11 @@
   src: url(assets/fonts/lobster.otf);
 }
 
+@font-face {
+  font-family: 'futura';
+  src: url(assets/fonts/futura-pt-book.otf);
+}
+
 body {
   margin: 0;
 }

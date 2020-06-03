@@ -21,6 +21,8 @@ import {ManageBannersComponent} from './admin/manage-banners/manage-banners.comp
 import { ContactComponent } from './contact/contact.component';
 import {CachingInterceptor} from './shared/helpers/caching.interceptor';
 import {RequestCache} from './shared/helpers/request-cache';
+import { WidgetsComponent } from './widgets/widgets.component';
+import { ButtonComponent } from './button/button.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import {RequestCache} from './shared/helpers/request-cache';
     DashboardComponent,
     AddBannerComponent,
     ManageBannersComponent,
-    ContactComponent
+    ContactComponent,
+    WidgetsComponent,
+    ButtonComponent
   ],
   imports: [
     BrowserModule,
@@ -48,8 +52,8 @@ import {RequestCache} from './shared/helpers/request-cache';
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    // RequestCache,
-    // { provide: HTTP_INTERCEPTORS, useClass: CachingInterceptor, multi: true }
+    RequestCache,
+    { provide: HTTP_INTERCEPTORS, useClass: CachingInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

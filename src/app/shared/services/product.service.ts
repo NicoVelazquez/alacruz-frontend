@@ -36,4 +36,8 @@ export class ProductService {
   public async getFeaturedProducts(): Promise<Product[]> {
     return this.http.get<any>(`${environment.apiUrl}product/featured`).toPromise();
   }
+
+  public async getRegularProducts(): Promise<Product[]> {
+    return this.http.get<any>(`${environment.apiUrl}product/regular`).toPromise();
+  }
 }

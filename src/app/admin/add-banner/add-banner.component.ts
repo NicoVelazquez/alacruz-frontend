@@ -14,6 +14,7 @@ export class AddBannerComponent implements OnInit {
   public addBannerForm: FormGroup;
   photo: string | ArrayBuffer;
   loading = false;
+  creating = false;
 
   constructor(private fb: FormBuilder, private bannerService: BannerService) {
     this.addBannerForm = fb.group({
@@ -38,19 +39,21 @@ export class AddBannerComponent implements OnInit {
     }, 500);
   }
 
-  createBanner() {
+  async createBanner() {
+    this.creating = true;
     const name = this.addBannerForm.value.name;
     const imageUrl = this.photo.toString();
     const newBanner = new Banner(name, imageUrl);
-    this.bannerService.createBanner(newBanner)
+    await this.bannerService.createBanner(newBanner)
       .then(() => {
         Notification.notify('<span uk-icon="icon: check"></span> Banner created successfully', 'success');
         this.resetForm();
       })
       .catch(err => {
         console.log(err);
-        Notification.notify('<span uk-icon="icon: check"></span> Banner could not be created', 'danger');
+        Notification.notify('<span uk-icon="icon: warning"></span> Banner could not be created', 'danger');
       });
+    this.creating = false;
   }
 
   resetForm() {

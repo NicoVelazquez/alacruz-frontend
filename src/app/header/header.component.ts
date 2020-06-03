@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../shared/services/auth.service';
+import * as UIkit from 'uikit';
 
 @Component({
   selector: 'app-header',
@@ -16,5 +17,10 @@ export class HeaderComponent implements OnInit {
 
   signOut() {
     this.authService.signOut();
+    this.closeSidenav();
+  }
+
+  closeSidenav() {
+    UIkit.offcanvas('#offcanvas-usage').hide();
   }
 }

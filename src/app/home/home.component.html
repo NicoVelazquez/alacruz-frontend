@@ -26,12 +26,20 @@
   <div class="home-body-container uk-flex uk-flex-center">
 
     <div class="products-section uk-width-4-5">
+      <h2 class="section-title uk-text-center">Popular Products</h2>
+      <h3 class="section-subtitle uk-text-center">Don't know them?</h3>
+      <app-product-list [products]="featuredProducts" [productsPerRow]="3"></app-product-list>
+    </div>
 
-      <div class="popular-title">
-        <h2 class="section-title uk-text-center">Productos Populares</h2>
-        <h3 class="section-subtitle uk-text-center">No los conoces?</h3>
-      </div>
+  </div>
 
+  <app-widgets></app-widgets>
+
+  <div class="home-body-container uk-flex uk-flex-center" style="margin-top: 30px">
+
+    <div class="products-section uk-width-4-5">
+      <h2 class="section-title uk-text-center">Our Products</h2>
+      <h3 class="section-subtitle uk-text-center">What are you waiting for?</h3>
       <app-product-list [products]="products" [productsPerRow]="3"></app-product-list>
     </div>
 

@@ -1,0 +1,18 @@
+.icons-section {
+  background-color: #F5F5F5;
+}
+
+.widget-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.icon {
+  margin-right: 20px;
+}
+
+.icons-section p {
+  margin: 0;
+}

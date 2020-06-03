@@ -1,6 +1,13 @@
 p {
   text-align: justify;
-  text-justify: inter-word;
+  font-family: futura, sans-serif;
+  font-size: 17px;
+  color: #333333;
+}
+
+::placeholder {
+  font-family: futura, sans-serif;
+  font-size: 18px;
 }
 
 .message-input {

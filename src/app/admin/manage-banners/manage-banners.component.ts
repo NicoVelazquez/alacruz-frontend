@@ -16,6 +16,7 @@ export class ManageBannersComponent implements OnInit {
   selectedBanner: Banner;
   photo: string | ArrayBuffer;
   loading = false;
+  updating = false;
 
   constructor(private fb: FormBuilder, private bannerService: BannerService) {
     this.editBannerForm = fb.group({
@@ -50,12 +51,13 @@ export class ManageBannersComponent implements OnInit {
     }, 500);
   }
 
-  editBanner() {
+  async editBanner() {
+    this.updating = true;
     this.selectedBanner.name = this.editBannerForm.value.name;
     if (this.selectedBanner.imageUrl !== this.photo) {
       this.selectedBanner.imageUrl = this.photo.toString();
     }
-    this.bannerService.editBanner(this.selectedBanner)
+    await this.bannerService.editBanner(this.selectedBanner)
       .then(() => {
         Notification.notify('<span uk-icon="icon: check"></span> Banner edited successfully', 'success');
       })
@@ -63,10 +65,12 @@ export class ManageBannersComponent implements OnInit {
         console.log(err);
         Notification.notify('<span uk-icon="icon: warning"></span> Banner could not be edited', 'danger');
       });
+    this.updating = false;
   }
 
-  deleteBanner() {
-    this.bannerService.deleteBanner(this.selectedBanner._id)
+  async deleteBanner() {
+    this.updating = true;
+    await this.bannerService.deleteBanner(this.selectedBanner._id)
       .then(removedBannerId => {
         Notification.notify('<span uk-icon="icon: check"></span> Banner deleted successfully', 'success');
         this.banners = this.banners.filter(e => e._id !== removedBannerId);
@@ -76,12 +80,14 @@ export class ManageBannersComponent implements OnInit {
         console.log(err);
         Notification.notify('<span uk-icon="icon: warning"></span> Banner could not be deleted', 'danger');
       });
+    this.updating = false;
   }
 
   resetForm() {
     (document.getElementById('form') as HTMLFormElement).reset();
     this.selectedBanner = undefined;
     this.photo = null;
+    this.editBannerForm.disable();
   }
 
 }

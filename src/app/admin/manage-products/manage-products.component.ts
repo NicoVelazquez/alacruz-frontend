@@ -16,6 +16,7 @@ export class ManageProductsComponent implements OnInit {
   selectedProduct: Product;
   photo: string | ArrayBuffer;
   loading = false;
+  updating = false;
 
   constructor(private fb: FormBuilder, private productService: ProductService) {
     this.editProductForm = fb.group({
@@ -49,12 +50,13 @@ export class ManageProductsComponent implements OnInit {
     }, 500);
   }
 
-  editProduct() {
+  async editProduct() {
+    this.updating = true;
     this.selectedProduct.name = this.editProductForm.value.name;
     if (this.selectedProduct.imageUrl !== this.photo) {
       this.selectedProduct.imageUrl = this.photo.toString();
     }
-    this.productService.editProduct(this.selectedProduct)
+    await this.productService.editProduct(this.selectedProduct)
       .then(() => {
         this.resetForm();
         Notification.notify('<span uk-icon="icon: check"></span> Product edited successfully', 'success');
@@ -63,10 +65,12 @@ export class ManageProductsComponent implements OnInit {
         console.log(err);
         Notification.notify('<span uk-icon="icon: warning"></span> Product could not be edited', 'danger');
       });
+    this.updating = false;
   }
 
-  deleteProduct() {
-    this.productService.deleteProduct(this.selectedProduct._id)
+  async deleteProduct() {
+    this.updating = true;
+    await this.productService.deleteProduct(this.selectedProduct._id)
       .then(removedProductId => {
         Notification.notify('<span uk-icon="icon: check"></span> Product deleted successfully', 'success');
         this.products = this.products.filter(e => e._id !== removedProductId);
@@ -76,16 +80,17 @@ export class ManageProductsComponent implements OnInit {
         console.log(err);
         Notification.notify('<span uk-icon="icon: warning"></span> Product could not be deleted', 'danger');
       });
+    this.updating = false;
   }
 
   resetForm() {
     (document.getElementById('form') as HTMLFormElement).reset();
     this.selectedProduct = undefined;
     this.photo = null;
+    this.editProductForm.disable();
   }
 
   checkboxChanged() {
-    console.log('entro');
     this.selectedProduct.featured = !this.selectedProduct.featured;
   }
 }

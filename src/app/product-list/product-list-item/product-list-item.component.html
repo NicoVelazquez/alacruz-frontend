@@ -1,8 +1,8 @@
 <div class="product uk-card uk-card-default uk-card-body">
-  <img src="{{product?.imageUrl}}" class="image">
-  <img src="./assets/images/noImageAvailable.png" class="image" alt="" *ngIf="!product?.imageUrl">
+  <img class="image" src="{{product?.imageUrl}}" *ngIf="product?.imageUrl">
+  <img class="image" src="./assets/images/noImageAvailable.png" alt="" *ngIf="!product?.imageUrl">
 
-  <img class="loading-image" src="./assets/images/loading.svg" alt="" *ngIf="loading">
+  <img class="loading-image image" src="./assets/images/loading.svg" alt="" *ngIf="loading">
 
   <div class="information" *ngIf="product?.name">
     <div class="name"><h3>{{product?.name}}</h3></div>

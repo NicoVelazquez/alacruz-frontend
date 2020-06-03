@@ -14,13 +14,17 @@ export class HomeComponent implements OnInit {
 
   products: Product[] = [new Product('', './assets/images/product-loader.svg'),
     new Product('', './assets/images/product-loader.svg')];
+  featuredProducts: Product[] = [new Product('', './assets/images/product-loader.svg'),
+    new Product('', './assets/images/product-loader.svg')];
   banners: Banner[] = [new Banner('', './assets/images/banner-loader.svg')];
 
   constructor(private productService: ProductService, private bannerService: BannerService) {
   }
 
   ngOnInit(): void {
-    this.productService.getFeaturedProducts().then(products => this.products = products);
+    this.productService.getFeaturedProducts().then(products => this.featuredProducts = products);
+
+    this.productService.getRegularProducts().then(products => this.products = products);
 
     this.bannerService.getAllBanners().then(banners => this.banners = banners);
   }
