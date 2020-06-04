@@ -14,9 +14,15 @@
   src: url(assets/fonts/futura-pt-book.otf);
 }
 
+html {
+  width:100vw;
+  overflow-x:hidden;
+}
+
 body {
   margin: 0;
 }
+
 
 input.ng-invalid.ng-touched,
 textarea.ng-invalid.ng-touched {
