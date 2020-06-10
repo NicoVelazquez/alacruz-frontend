@@ -4,9 +4,6 @@ import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {HeaderComponent} from './header/header.component';
-import {LandingComponent} from './home/landing/landing.component';
-import {ProductListComponent} from './home/product-list/product-list.component';
-import {ProductListItemComponent} from './home/product-list/product-list-item/product-list-item.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {JwtInterceptor} from './shared/helpers/jwt.interceptor';
 import {ErrorInterceptor} from './shared/helpers/error.interceptor';
@@ -19,10 +16,7 @@ import {SharedModule} from './shared/shared.module';
   declarations: [
     AppComponent,
     HeaderComponent,
-    LandingComponent,
-    ProductListComponent,
-    ProductListItemComponent,
-    ContactComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,
