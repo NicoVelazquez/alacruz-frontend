@@ -1,23 +1,19 @@
 import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {HomeComponent} from './home/home.component';
-import {SignInComponent} from './sign-in/sign-in.component';
-import {AuthGuard} from './shared/guards/auth.guard';
-import {DashboardComponent} from './admin/dashboard/dashboard.component';
+import {NoPreloading, PreloadAllModules, RouterModule, Routes} from '@angular/router';
 import {ContactComponent} from './contact/contact.component';
 
 
 const routes: Routes = [
-  {path: '', component: HomeComponent},
+  {path: '', loadChildren: () => import('./home/home.module').then(m => m.HomeModule)},
   {path: 'contact', component: ContactComponent},
-  {path: 'admin', component: SignInComponent},
-  {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
-  {path: 'dashboard/:section', component: DashboardComponent, canActivate: [AuthGuard]},
-  {path: '**', component: HomeComponent},
+  {path: 'admin', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)},
+  {path: 'dashboard', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)},
+  {path: '**', redirectTo: ''},
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  // imports: [RouterModule.forRoot(routes, {useHash: true})],    // All routes begin with #
+  imports: [RouterModule.forRoot(routes, {preloadingStrategy: NoPreloading})],
   exports: [RouterModule]
 })
 export class AppRoutingModule {

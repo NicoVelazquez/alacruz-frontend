@@ -18,8 +18,9 @@
           </div>
         </div>
 
-        <app-button [type]="'primary'" [text]="'Create'" [disabled]="addBannerForm.invalid || !this.photo"
+        <app-button [type]="'primary'" [disabled]="addBannerForm.invalid || !this.photo"
                     [loading]="creating" (pressed)="createBanner()">
+          Create
         </app-button>
 
       </form>
@@ -28,10 +29,10 @@
     <div class="preview-banner-container uk-width-1-2@s">
       <h3>Preview</h3>
 
-      <app-product-list-item
+      <app-preview-image
         [product]="{name: '', imageUrl: photo}"
         [loading]="loading">
-      </app-product-list-item>
+      </app-preview-image>
 
     </div>
 

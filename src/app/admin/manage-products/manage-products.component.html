@@ -36,13 +36,15 @@
 
         <div class="uk-flex uk-flex-center uk-margin-small uk-child-width-1-2">
 
-          <app-button [type]="'primary'" [text]="'Update'" *ngIf="!updating"
+          <app-button [type]="'primary'" *ngIf="!updating"
                       [disabled]="editProductForm.invalid  || !this.selectedProduct"
                       (pressed)="editProduct()">
+            Update
           </app-button>
-          <app-button [type]="'danger'" [text]="'Delete'" *ngIf="!updating"
+          <app-button [type]="'danger'" *ngIf="!updating"
                       [disabled]="!selectedProduct"
                       (pressed)="deleteProduct()">
+            Delete
           </app-button>
           <app-button [loading]="updating" *ngIf="updating"></app-button>
 
@@ -54,10 +56,10 @@
 
   <div class="preview-product-container uk-width-2-5@m">
     <h3>Preview</h3>
-    <app-product-list-item
+    <app-preview-image
       [product]="{name: editProductForm.value.name, imageUrl: photo}"
       [loading]="loading">
-    </app-product-list-item>
+    </app-preview-image>
   </div>
 
 

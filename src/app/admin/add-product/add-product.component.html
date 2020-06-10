@@ -25,8 +25,9 @@
           </div>
         </div>
 
-        <app-button [type]="'primary'" [text]="'Create'" [disabled]="addProductForm.invalid || !this.photo"
+        <app-button [type]="'primary'" [disabled]="addProductForm.invalid || !this.photo"
                     [loading]="creating" (pressed)="createProduct()">
+          Create
         </app-button>
 
 
@@ -36,10 +37,10 @@
     <div class="preview-product-container uk-width-1-2@s">
       <h3>Preview</h3>
 
-      <app-product-list-item
+      <app-preview-image
         [product]="{name: addProductForm.value.name, imageUrl: photo}"
         [loading]="loading">
-      </app-product-list-item>
+      </app-preview-image>
 
     </div>
   </div>

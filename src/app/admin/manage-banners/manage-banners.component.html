@@ -29,13 +29,15 @@
 
         <div class="uk-flex uk-flex-center uk-margin-small uk-child-width-1-2">
 
-          <app-button [type]="'primary'" [text]="'Update'" *ngIf="!updating"
+          <app-button [type]="'primary'" *ngIf="!updating"
                       [disabled]="editBannerForm.invalid  || !this.selectedBanner"
                       (pressed)="editBanner()">
+            Update
           </app-button>
-          <app-button [type]="'danger'" [text]="'Delete'" *ngIf="!updating"
+          <app-button [type]="'danger'" *ngIf="!updating"
                       [disabled]="!selectedBanner"
                       (pressed)="deleteBanner()">
+            Delete
           </app-button>
           <app-button [loading]="updating" *ngIf="updating"></app-button>
 
@@ -47,10 +49,10 @@
 
   <div class="preview-banner-container uk-width-2-5@m">
     <h3>Preview</h3>
-    <app-product-list-item
+    <app-preview-image
       [product]="{name: '', imageUrl: photo}"
       [loading]="loading">
-    </app-product-list-item>
+    </app-preview-image>
   </div>
 
 

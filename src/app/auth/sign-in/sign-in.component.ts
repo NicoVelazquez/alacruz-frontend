@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import * as UIkit from 'uikit';
-import {AuthService} from '../shared/services/auth.service';
-import {Router} from '@angular/router';
+import {AuthService} from '../../shared/services/auth.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 
 @Component({
@@ -14,14 +13,21 @@ export class SignInComponent implements OnInit {
 
   public signInForm: FormGroup;
   public showPass: boolean;
-
   invalidEmailOrPassword = false;
+  invalidToken = false;
+  returnUrl: string;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
+  constructor(private fb: FormBuilder, private authService: AuthService,
+              private router: Router, route: ActivatedRoute) {
     this.signInForm = fb.group({
       email: new FormControl(null, [Validators.required]),
       password: new FormControl(null, [Validators.required]),
     });
+    const params = route.snapshot.queryParams;
+    if (params.returnUrl) {
+      this.invalidToken = true;
+      this.returnUrl = params.returnUrl;
+    }
   }
 
   ngOnInit(): void {
@@ -43,6 +49,9 @@ export class SignInComponent implements OnInit {
   signIn() {
     this.authService.signIn(this.signInForm.value.email, this.signInForm.value.password).then(() => {
       this.signInForm.reset();
+      if (this.invalidToken) {
+        return this.router.navigate([this.returnUrl]);
+      }
       this.router.navigate(['']);
     }).catch(err => {
       if (err === 'invalid credentials') {
