@@ -13,9 +13,7 @@ import {ErrorInterceptor} from './shared/helpers/error.interceptor';
 import {ContactComponent} from './contact/contact.component';
 import {CachingInterceptor} from './shared/helpers/caching.interceptor';
 import {RequestCache} from './shared/helpers/request-cache';
-import {AdminModule} from './admin/admin.module';
 import {SharedModule} from './shared/shared.module';
-import {AuthModule} from './auth/auth.module';
 
 @NgModule({
   declarations: [
@@ -30,16 +28,16 @@ import {AuthModule} from './auth/auth.module';
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    AdminModule,
-    SharedModule,
-    AuthModule
+    SharedModule
   ],
   providers: [
     RequestCache,
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: CachingInterceptor, multi: true }
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: CachingInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
+

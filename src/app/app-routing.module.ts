@@ -1,8 +1,9 @@
 import {NgModule} from '@angular/core';
-import {NoPreloading, PreloadAllModules, RouterModule, Routes} from '@angular/router';
+import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 import {ContactComponent} from './contact/contact.component';
 
 
+// When lazy loading modules, they shouldn't be imported in the app.module
 const routes: Routes = [
   {path: '', loadChildren: () => import('./home/home.module').then(m => m.HomeModule)},
   {path: 'contact', component: ContactComponent},
@@ -13,8 +14,9 @@ const routes: Routes = [
 
 @NgModule({
   // imports: [RouterModule.forRoot(routes, {useHash: true})],    // All routes begin with #
-  imports: [RouterModule.forRoot(routes, {preloadingStrategy: NoPreloading})],
+  imports: [RouterModule.forRoot(routes, {preloadingStrategy: PreloadAllModules})],   // Define the preloading strategy
   exports: [RouterModule]
 })
 export class AppRoutingModule {
 }
+
