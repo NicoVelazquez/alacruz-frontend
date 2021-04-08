@@ -16,7 +16,7 @@ export class AuthService {
   }
 
   public isAdmin() {
-    return JSON.parse(window.localStorage.getItem('currentUser')).email === 'nicovelabust@gmail.com';
+    return JSON.parse(window.localStorage.getItem('currentUser')).email === environment.adminEmail;
   }
 
   public signIn(email: string, password: string) {
