@@ -62,8 +62,8 @@ export class ManageBannersComponent implements OnInit {
         Notification.notify('<span uk-icon="icon: check"></span> Banner edited successfully', 'success');
       })
       .catch(err => {
-        console.log(err);
-        Notification.notify('<span uk-icon="icon: warning"></span> Banner could not be edited', 'danger');
+        console.log(err.message);
+        Notification.notify(`<span uk-icon="icon: warning"></span> ${err.message}`, 'danger');
       });
     this.updating = false;
   }
@@ -78,7 +78,7 @@ export class ManageBannersComponent implements OnInit {
       })
       .catch(err => {
         console.log(err);
-        Notification.notify('<span uk-icon="icon: warning"></span> Banner could not be deleted', 'danger');
+        Notification.notify(`<span uk-icon="icon: warning"></span> ${err.message}`, 'danger');
       });
     this.updating = false;
   }

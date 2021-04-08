@@ -2,31 +2,50 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {Product} from '../models/product';
+import {Banner} from '../models/banner';
+import {AuthService} from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private authService: AuthService) {
   }
 
   public createProduct(product: Product): Promise<Product> {
-    return this.http.post<any>(`${environment.apiUrl}product/create`, product).toPromise();
+    if (this.authService.isAdmin()) {
+      return this.http.post<any>(`${environment.apiUrl}product/create`, product).toPromise();
+    } else {
+      return new Promise<Banner>((resolve, reject) => {
+        throw new Error(`You don't have permissions to create Products`);
+      });
+    }
   }
 
   public editProduct(product: Product): Promise<Product> {
-    return this.http.post<any>(`${environment.apiUrl}product/edit`, product).toPromise();
+    if (this.authService.isAdmin()) {
+      return this.http.post<any>(`${environment.apiUrl}product/edit`, product).toPromise();
+    } else {
+      return new Promise<Banner>((resolve, reject) => {
+        throw new Error(`You don't have permissions to modify Products`);
+      });
+    }
   }
 
   /**
    * Deletes the product selected
-   * @param _id: id of the product to delete
+   * @param id: id of the product to delete
    * Returns: id of the product deleted
    */
-  // tslint:disable-next-line:variable-name
-  public deleteProduct(_id: string): Promise<string> {
-    return this.http.post<any>(`${environment.apiUrl}product/delete`, {_id}).toPromise();
+  public deleteProduct(id: string): Promise<string> {
+    if (this.authService.isAdmin()) {
+      return this.http.post<any>(`${environment.apiUrl}product/delete`, {_id: id}).toPromise();
+    } else {
+      return new Promise<string>((resolve, reject) => {
+        throw new Error(`You don't have permissions to delete Products`);
+      });
+    }
   }
 
   public async getAllProducts(): Promise<Product[]> {

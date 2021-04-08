@@ -63,7 +63,7 @@ export class ManageProductsComponent implements OnInit {
       })
       .catch(err => {
         console.log(err);
-        Notification.notify('<span uk-icon="icon: warning"></span> Product could not be edited', 'danger');
+        Notification.notify(`<span uk-icon="icon: warning"></span> ${err.message}`, 'danger');
       });
     this.updating = false;
   }
@@ -78,7 +78,7 @@ export class ManageProductsComponent implements OnInit {
       })
       .catch(err => {
         console.log(err);
-        Notification.notify('<span uk-icon="icon: warning"></span> Product could not be deleted', 'danger');
+        Notification.notify(`<span uk-icon="icon: warning"></span> ${err.message}`, 'danger');
       });
     this.updating = false;
   }

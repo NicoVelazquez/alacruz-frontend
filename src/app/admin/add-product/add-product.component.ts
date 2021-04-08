@@ -58,7 +58,7 @@ export class AddProductComponent implements OnInit {
       })
       .catch(err => {
         console.log(err);
-        Notification.notify('<span uk-icon="icon: warning"></span> Product could not be created', 'danger');
+        Notification.notify(`<span uk-icon="icon: warning"></span> ${err.message}`, 'danger');
       });
     this.creating = false;
   }

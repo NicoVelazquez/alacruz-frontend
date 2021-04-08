@@ -15,6 +15,10 @@ export class AuthService {
     return window.localStorage.getItem('currentUser') !== null;
   }
 
+  public isAdmin() {
+    return JSON.parse(window.localStorage.getItem('currentUser')).email === 'nicovelabust@gmail.com';
+  }
+
   public signIn(email: string, password: string) {
     return this.http.post<any>(`${environment.apiUrl}auth/sign-in`, {email, password}).toPromise()
       .then(user => {

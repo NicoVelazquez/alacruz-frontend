@@ -3,6 +3,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {BannerService} from '../../shared/services/banner.service';
 import {Banner} from '../../shared/models/banner';
 import {Notification} from '../../shared/notification';
+import {getErrorMessage} from 'codelyzer/templateAccessibilityElementsContentRule';
 
 @Component({
   selector: 'app-add-banner',
@@ -50,8 +51,8 @@ export class AddBannerComponent implements OnInit {
         this.resetForm();
       })
       .catch(err => {
-        console.log(err);
-        Notification.notify('<span uk-icon="icon: warning"></span> Banner could not be created', 'danger');
+        console.log(err.message);
+        Notification.notify(`<span uk-icon="icon: warning"></span> ${err.message}`, 'danger');
       });
     this.creating = false;
   }
