@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {AuthService} from '../shared/services/auth.service';
 import * as UIkit from 'uikit';
 
@@ -9,7 +9,21 @@ import * as UIkit from 'uikit';
 })
 export class HeaderComponent implements OnInit {
 
+  public scrollActivated: boolean;
+
+  @HostListener('window: scroll')
+  onScroll() {
+    const top: number = document.documentElement.scrollTop;
+    if (top === 0) {
+      return this.scrollActivated = false;
+    }
+    if (top > 100) {
+      return this.scrollActivated = true;
+    }
+  }
+
   constructor(public authService: AuthService) {
+    this.scrollActivated = false;
   }
 
   ngOnInit(): void {

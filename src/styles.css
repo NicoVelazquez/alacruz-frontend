@@ -15,8 +15,8 @@
 }
 
 html {
-  width:100vw;
-  overflow-x:hidden;
+  width: 100vw;
+  overflow-x: hidden;
 }
 
 body {
@@ -27,6 +27,11 @@ body {
 input.ng-invalid.ng-touched,
 textarea.ng-invalid.ng-touched {
   border: 1px solid red;
+}
+
+.uk-notification-message {
+  font-size: 1rem !important;
+  line-height: 1 !important;
 }
 
 .uk-notification-message-success {

@@ -1,10 +1,21 @@
 .uk-navbar-container {
-  background-color: white;
+  background-color: transparent;
+  transition: all .5s;
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  width: 100%;
+}
+
+.uk-navbar-container-active {
+  background-color: #fffffff2;
+  transition: all .5s;
 }
 
 a {
   font-family: chunkfive, serif !important;
   color: black !important;
+  text-shadow: 1px 1px #ffffff;
 }
 
 .sidenav-container {
@@ -22,7 +33,7 @@ a {
 
 .desktop {
   display: flex;
-  padding: 0 20px;
+  /*padding: 0 20px;*/
 }
 
 .mobile {

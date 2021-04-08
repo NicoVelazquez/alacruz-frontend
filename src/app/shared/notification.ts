@@ -6,8 +6,8 @@ export class Notification {
     UIkit.notification({
       message,
       status,
-      pos: 'top-center',
-      timeout: 2000
+      pos: 'top-right',
+      timeout: 2000000000
     });
   }
 
